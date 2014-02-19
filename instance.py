@@ -28,7 +28,7 @@ class Instance(object):
 
     # _url = 'http://192.168.36.106/dashboard'
     #_url = 'http://192.168.36.112/dashboard'
-    _url = 'http://localhost:8000'
+    _url = 'http://localhost/dashboard'
     _user = 'demo'
     _pass = 'demo'
 
@@ -92,7 +92,7 @@ class TestCase(multiprocessing.Process):
     def run(self):
         i = Instance(self.number)
         i.login()
-        for count in range(counter):
+        for count in range(self.counter):
             #scope = random.choice(['project', 'admin'])
             scope = 'project'
             subpage = random.choice(['instances', 'volumes', '',
@@ -105,7 +105,12 @@ class TestCase(multiprocessing.Process):
         i.logout()
 
 if __name__ == '__main__':
-    counter = 10000
-    for num in range(9):
-        tc = TestCase(num, counter)
+    """
+    Change requests_per_thread and parallel_threads to
+    values suiting you.
+    """
+    requests_per_thread = 10000
+    parallel_threads = 9
+    for num in range(parallel_threads):
+        tc = TestCase(num, requests_per_thread)
         tc.start()
