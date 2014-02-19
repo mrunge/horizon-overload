@@ -7,6 +7,7 @@ it breaks.
 To use it, create a user and a password and adjust the following values
 
   ::
+
   _url = 'http://...'
   _user = 'demo'
   _pass = 'demo'
